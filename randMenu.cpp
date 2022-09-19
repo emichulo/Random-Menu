@@ -12,13 +12,20 @@ void SetColor(int k) {
 
 };
 
-int main()
-{
-    system("### Ur nasty menu ###");
+void assignment() {
 
     strcpy_s(mainMenu[0], 5, "#####");
     strcpy_s(mainMenu[1], 5, "#####");
     strcpy_s(mainMenu[2], 5, "#####");
+
+}
+
+
+int main()
+{
+    system("### Ur nasty menu ###");
+
+    assignment();
 
 
 
