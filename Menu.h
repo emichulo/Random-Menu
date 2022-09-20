@@ -15,8 +15,26 @@ public:
 		sm_data.push_back(p);
 		return *this;
 	}
+	size_t size()const { return sm_data.size(); }
+	std::pair < std::string, std::function<void()>>& operator[] (size_t index) { return sm_data[index]; }
+	SubMenu& operator++ () {
+		if (sm_index == sm_data.size() - 1)
+			sm_index = 0;
+		else
+			++sm_index;
+		return *this;
+	}
+	SubMenu& operator-- () {
+		if (sm_index == 0)
+			sm_index = sm_data.size()-1;
+		else
+			--sm_index;
+		return *this;
+	}
+	size_t getIndex()const { return sm_index; }
 private:
 	std::vector<std::pair<std::string, std::function<void()>>> sm_data;
+	size_t sm_index;
 };
 
 class Menu {
