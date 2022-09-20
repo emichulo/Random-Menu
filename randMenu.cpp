@@ -5,7 +5,7 @@
 Menu obj;
 void init() {
 	obj.addMenu("Main Menu");
-	obj.getMenu("Main Menu").addOption("aaaa", []() {std::cout << "wellcum"; }).addOption("bbbb", []() {});
+	obj["Main Menu"].addOption("aaaa", []() {std::cout << "wellcum"; }).addOption("bbbb", []() {});
 };
 void setcolor(int k) {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), k);
@@ -24,17 +24,17 @@ void print(SubMenu& sm) {
 
 int main() {
 	init();
-	SubMenu& sm = obj.getMenu("Main Menu");
+	SubMenu& sm = obj["Main Menu"];
 	print(sm);
 	while (true) {
 		if (GetAsyncKeyState(VK_LSHIFT)) {
 			--sm;
-			Sleep(100);
+			Sleep(200);
 			print(sm);
 		}
 		if (GetAsyncKeyState(VK_RSHIFT)) {
 			++sm;
-			Sleep(100);
+			Sleep(200);
 			print(sm);
 		}
 		if (GetAsyncKeyState(VK_CONTROL)) {

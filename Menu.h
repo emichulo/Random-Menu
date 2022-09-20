@@ -42,9 +42,7 @@ public:
 	void addMenu(const std::string& name) {
 		m_data[name] = SubMenu{};
 	}
-	SubMenu& getMenu(const std::string& name) {
-		return m_data.at(name);
-	}
+	SubMenu& operator[] (const std::string& name) {return m_data.at(name);}
 private:
 	std::unordered_map<std::string, SubMenu> m_data;
 
