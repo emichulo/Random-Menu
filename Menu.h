@@ -6,6 +6,10 @@
 #include<unordered_map>
 #include<functional>
 
+void setcolor(int k) {
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), k);
+}
+
 class SubMenu {
 public:
 	SubMenu& addOption(std::string option, std::function<void()> funct) {
@@ -34,7 +38,7 @@ public:
 	size_t getIndex()const { return sm_index; }
 private:
 	std::vector<std::pair<std::string, std::function<void()>>> sm_data;
-	size_t sm_index;
+	size_t sm_index = 0;
 };
 
 class Menu {
@@ -43,15 +47,43 @@ public:
 		m_data[name] = SubMenu{};
 	}
 	SubMenu& operator[] (const std::string& name) {return m_data.at(name);}
+
+	void print(SubMenu& sm) {
+		system("cls");
+		for (size_t i = 0; i < sm.size(); i++) {
+			if (i == sm.getIndex())
+				setcolor(3);
+			else
+				setcolor(7);
+			std::cout << i << "." << sm[i].first << "\n";
+		}
+		setcolor(7);
+	}
+
+	void run(const std::string& name) {
+		SubMenu& sm = m_data.at(name);
+		print(sm);
+		while (true) {
+			if (GetAsyncKeyState(VK_LSHIFT)) {
+				--sm;
+				Sleep(200);
+				print(sm);
+			}
+			if (GetAsyncKeyState(VK_RSHIFT)) {
+				++sm;
+				Sleep(200);
+				print(sm);
+			}
+			if (GetAsyncKeyState(VK_CONTROL)) {
+				Sleep(200);
+				sm[sm.getIndex()].second();
+				
+			}
+		}
+	}
 private:
 	std::unordered_map<std::string, SubMenu> m_data;
-
-
 };
-
-
-
-
 
 #endif
 
